@@ -188,6 +188,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+    
     if (self.selectedBtnArray.count == 0) return;
     self.codeString = nil;
     //把所有的选中按钮之间连线
