@@ -170,7 +170,6 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
     //获取手势锁控件的frame
     self.viewFrame = self.bounds;
     //计算 button frame
