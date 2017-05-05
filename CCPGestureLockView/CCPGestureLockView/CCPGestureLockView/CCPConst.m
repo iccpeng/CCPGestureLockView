@@ -2,7 +2,7 @@
 /** 图片的宽度 */
 CGFloat const imageWidthAndHeight = 68;
 /** 行数与列数*/
-NSInteger const rowAndColCount = 4;
+NSInteger const rowAndColCount = 3;
 /** 左侧边距*/
 CGFloat const leftMargin = 30;
 /** 右侧边距*/
