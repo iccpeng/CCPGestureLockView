@@ -139,6 +139,7 @@
         [self setNeedsDisplay];
     });
 }
+
 //创建button
 - (void) creatGestureLockButton {
     for ( int i = 0; i < buttonCount; i++) {
@@ -213,6 +214,5 @@
     [self.linePath stroke];
     
 }
-
 
 @end
