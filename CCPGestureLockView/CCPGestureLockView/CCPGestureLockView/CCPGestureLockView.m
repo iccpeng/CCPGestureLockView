@@ -23,8 +23,6 @@
 @property (nonatomic,copy) NSMutableString *codeString;
 //记录是否密码错误
 @property (nonatomic,assign) BOOL isError;
-//错误码
-@property (nonatomic,assign) errorStyle errorCode;
 @end
 
 
@@ -89,32 +87,39 @@
     //重绘
     [self setNeedsDisplay];
     if (pan.state == UIGestureRecognizerStateEnded ) {
-        
+        //判断绘制的密码是否符合规则
         if (self.codeString.length >= minNumCode) {
-            
-            if (self.getCodeStringBlock) {
-                self.getCodeStringBlock(self.codeString);
-            }
             if (self.goalString.length > 0) {//解锁密码
                 if ([self.codeString isEqualToString:self.goalString]) {
-                    if ([self.delegate respondsToSelector:@selector(gestureLockView:successCodeString:)]) {
-                        [self.delegate gestureLockView:self successCodeString:self.goalString];
+                    //解锁成功
+                    if (self.codeStringAndErrorCodeBlock) {
+                        self.codeStringAndErrorCodeBlock(self.codeString,unlockSuccess);
                     }
                 } else {
                     [self codeError];
-                    NSLog(@"%@",@"解锁失败");
+                    //解锁失败
+                    if (self.codeStringAndErrorCodeBlock) {
+                        self.codeStringAndErrorCodeBlock(self.codeString,unlockFailed);
+                    }
+                }
+            } else {
+                //设置密码
+                if (self.codeStringAndErrorCodeBlock) {
+                    self.codeStringAndErrorCodeBlock(self.codeString,codeSetting);
                 }
             };
             [self redraw];
         } else {
             [self codeError];
             [self redraw];
-            NSLog(@"%@",@"密码不合法");
-
+            //判断错误类型
+            codeStyle code = self.goalString.length > 0 ? unlockFailed:illegalSetting;
+            if (self.codeStringAndErrorCodeBlock) {
+                self.codeStringAndErrorCodeBlock(self.codeString,code);
+            }
         }
     }
 }
-
 
 - (void) codeError {
     [self.selectedBtnArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -122,7 +127,7 @@
         [btn setImage:[UIImage imageNamed:@"gestureError"] forState:UIControlStateSelected];
         self.isError = YES;
         [self setNeedsDisplay];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.isError = NO;
             [btn setImage:[UIImage imageNamed:@"gestureHighlighted"] forState:UIControlStateSelected];
         });
@@ -130,7 +135,7 @@
 }
 //重新绘制
 - (void) redraw {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         for (UIButton *button in self.selectedBtnArray) {
             button.selected = NO;
         }
@@ -157,10 +162,15 @@
     if (btn.selected == NO) {
         btn.selected = YES;
         [btn setImage:[UIImage imageNamed:@"gestureError"] forState:UIControlStateSelected];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             btn.selected = NO;
             [btn setImage:[UIImage imageNamed:@"gestureHighlighted"] forState:UIControlStateSelected];
         });
+    }
+    //判断错误类型
+    codeStyle code = self.goalString.length > 0 ? unlockFailed:illegalSetting;
+    if (self.codeStringAndErrorCodeBlock) {
+        self.codeStringAndErrorCodeBlock(self.codeString,code);
     }
 }
 

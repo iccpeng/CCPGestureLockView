@@ -9,9 +9,8 @@
 #import "CCPCodeViewController.h"
 #import "CCPBGView.h"
 #import "CCPGestureLockView.h"
-#import "CCPConst.h"
 
-@interface CCPCodeViewController ()<CCPGestureLockViewDelegate>
+@interface CCPCodeViewController ()
 
 //存储设置密码的次数
 @property (nonatomic,assign) NSInteger saveCount;
@@ -50,7 +49,6 @@ static NSString * const saveCodeString = @"saveCodeString";
 - (void) addGestureView{
     
     CCPGestureLockView *gestureView = [[CCPGestureLockView alloc] init];
-    gestureView.delegate = self;
     gestureView.frame = CGRectMake(0, (CCPScreenH - CCPScreenW)/2 , CCPScreenW, CCPScreenW);
     gestureView.backgroundColor = [UIColor colorWithRed:252.0/255 green:106.0/225 blue:8.0/255 alpha:0.5];
     gestureView.lineColor = [UIColor colorWithRed:77.0/255 green:153.0/225 blue:248.0/255 alpha:1.0];
@@ -59,31 +57,49 @@ static NSString * const saveCodeString = @"saveCodeString";
     [self.view addSubview:gestureView];
     
     //如果firstCodeString.length 不为零 说明密码已经设置成功
-    __block NSString *firstCodeString = (NSString *)USERDEFAULTS(saveCodeString);
-    self.savedString = firstCodeString;
-    if (firstCodeString.length > 0) {
-        gestureView.goalString = firstCodeString;
+    self.savedString = (NSString *)USERDEFAULTS(saveCodeString);
+    if (self.savedString.length > 0) {
+        gestureView.goalString = self.savedString;
     }
     __weak typeof(self) weakSelf = self;
-    gestureView.getCodeStringBlock = ^(NSString *codeString) {
-        if (weakSelf.savedString.length > 0) return ;
-        if ([weakSelf.codeString isEqualToString:codeString] || weakSelf.saveCount == 0 ) {
-            weakSelf.codeString = codeString;
-            weakSelf.saveCount ++;
-            NSLog(@"密码设置成功---%zd",self.saveCount);
-            if (weakSelf.saveCount == 2) {
-                USERDEFAULTSET(saveCodeString, codeString);
-                USERDEFAULTSYNCHRONIZE;
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                weakSelf.saveCount = 0;
-                weakSelf.codeString = nil;
+    gestureView.codeStringAndErrorCodeBlock = ^(NSString *codeString, codeStyle ErrorCode) {
+        
+        if (ErrorCode == unlockSuccess) {//解锁成功
+              NSLog(@"解锁成功");
+              [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            return ;
+        }
+        
+        if (ErrorCode == unlockFailed) {//解锁失败
+            
+            NSLog(@"解锁失败");
+            return;
+        }
+        
+        if (ErrorCode == illegalSetting) { //密码设置不合法
+             NSLog(@"密码设置不符合规则");
+            return;
+        }
+        
+        if (ErrorCode == codeSetting) {
+            NSLog(@"设置密码");
+            //根据项目需求就行 密码的设置
+            if ([weakSelf.codeString isEqualToString:codeString] || weakSelf.saveCount == 0 ) {
+                weakSelf.codeString = codeString;
+                weakSelf.saveCount ++;
+                NSLog(@"密码设置成功---%zd",self.saveCount);
+                if (weakSelf.saveCount == 2) {
+                    USERDEFAULTSET(saveCodeString, codeString);
+                    USERDEFAULTSYNCHRONIZE;
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                    weakSelf.saveCount = 0;
+                    weakSelf.codeString = nil;
+                }
+            } else {
+                NSLog(@"与首次设置的密码不一致，请重新设置");
             }
-        } else {
-            NSLog(@"与第一次设置的密码不一致，请重新设置");
         }
     };
-    
-    
 }
 
 - (void) clickTheBtn {
@@ -97,12 +113,12 @@ static NSString * const saveCodeString = @"saveCodeString";
 
 }
 
-//解锁成功的代理方法
-- (void)gestureLockView:(CCPGestureLockView *)gestureLockView successCodeString:(NSString *)successString {
-
-    [self dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"解锁成功");
-    }];
-}
+////解锁成功的代理方法
+//- (void)gestureLockView:(CCPGestureLockView *)gestureLockView successCodeString:(NSString *)successString {
+//
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        NSLog(@"解锁成功");
+//    }];
+//}
 
 @end

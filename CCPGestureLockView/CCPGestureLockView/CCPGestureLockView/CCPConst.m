@@ -11,4 +11,6 @@ CGFloat const rightMargin = 30;
 CGFloat const topMargin = 30;
 /** 最少的密码个数*/
 CGFloat const minNumCode = 4;
+/** 延迟时间*/
+CGFloat const delayTime = 0.5;
 

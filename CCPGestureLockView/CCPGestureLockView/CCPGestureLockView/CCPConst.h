@@ -11,11 +11,15 @@ UIKIT_EXTERN CGFloat const rightMargin;
 UIKIT_EXTERN CGFloat const topMargin;
 /** 最少的密码个数*/
 UIKIT_EXTERN CGFloat const minNumCode;
-
+/** 延迟时间*/
+UIKIT_EXTERN CGFloat const delayTime;
+//密码设置状态
 typedef enum  {
     illegalSetting,//不合规定的设置
-    differentSetting,//设置不同
-} errorStyle;
+    codeSetting,//设置密码
+    unlockFailed,//解锁失败
+    unlockSuccess,//解锁成功
+} codeStyle;
 
 #define CCPScreenH [UIScreen mainScreen].bounds.size.height
 #define CCPScreenW [UIScreen mainScreen].bounds.size.width
