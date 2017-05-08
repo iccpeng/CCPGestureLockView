@@ -41,4 +41,5 @@
  */
 ```
 - (void)gestureLockView:(CCPGestureLockView *)gestureLockView successCodeString:(NSString *)successString;
+
 ```
