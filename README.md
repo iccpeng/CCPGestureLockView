@@ -40,5 +40,5 @@
  *  比对成功后的回调
  */
 ```
--- (void)gestureLockView:(CCPGestureLockView *)gestureLockView successCodeString:(NSString *)successString;
+- (void)gestureLockView:(CCPGestureLockView *)gestureLockView successCodeString:(NSString *)successString;
 ```
