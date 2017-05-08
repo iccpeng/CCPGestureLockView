@@ -37,7 +37,7 @@
 @property (nonatomic, copy)void (^getCodeStringBlock)(NSString *codeString);
 ```
 /**
- *  比对成功后的回调
+ *  代理方法 比对成功后的回调
  */
 ```
 \- (void)gestureLockView:(CCPGestureLockView *)gestureLockView successCodeString:(NSString *)successString;
