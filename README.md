@@ -31,14 +31,9 @@
 @property (nonatomic,copy) NSString *goalString;
 ```
 /**
- *  获取手势密码
+ *  获取手势密码与状态码
  */
 ```
-@property (nonatomic, copy)void (^getCodeStringBlock)(NSString *codeString);
+@property (nonatomic, copy)getCodeStringAndErrorCode codeStringAndErrorCodeBlock;
 ```
-/**
- *  代理方法 比对成功后的回调
- */
-```
-\- (void)gestureLockView:(CCPGestureLockView *)gestureLockView successCodeString:(NSString *)successString;
-```
+
