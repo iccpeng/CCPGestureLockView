@@ -45,7 +45,6 @@ static NSString * const saveCodeString = @"saveCodeString";
     [bottomBtn setTitle:@"重置手势密码" forState:UIControlStateNormal];
     [bottomBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:bottomBtn];
-
 }
 
 - (void) addGestureView{

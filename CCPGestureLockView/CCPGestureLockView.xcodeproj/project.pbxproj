@@ -20,6 +20,7 @@
 		7E85156F1EB324CF00799182 /* CCPBezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E85156A1EB324CF00799182 /* CCPBezierPath.m */; };
 		7E8515701EB324CF00799182 /* CCPConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E85156C1EB324CF00799182 /* CCPConst.m */; };
 		7E8515711EB324CF00799182 /* CCPGestureLockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E85156E1EB324CF00799182 /* CCPGestureLockView.m */; };
+		7E8ACA521EC009D200790C21 /* gestureLock.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7E8ACA511EC009D200790C21 /* gestureLock.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		7E85156C1EB324CF00799182 /* CCPConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPConst.m; sourceTree = "<group>"; };
 		7E85156D1EB324CF00799182 /* CCPGestureLockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPGestureLockView.h; sourceTree = "<group>"; };
 		7E85156E1EB324CF00799182 /* CCPGestureLockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPGestureLockView.m; sourceTree = "<group>"; };
+		7E8ACA511EC009D200790C21 /* gestureLock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gestureLock.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 		7E6343B71EB1BAEF004B9075 /* CCPGestureLockView */ = {
 			isa = PBXGroup;
 			children = (
+				7E8ACA511EC009D200790C21 /* gestureLock.gif */,
 				7E8515681EB324CF00799182 /* CCPGestureLockView */,
 				7E6343BB1EB1BAEF004B9075 /* AppDelegate.h */,
 				7E6343BC1EB1BAEF004B9075 /* AppDelegate.m */,
@@ -282,6 +285,7 @@
 				7E6343C81EB1BAEF004B9075 /* LaunchScreen.storyboard in Resources */,
 				7E8515611EB2DF5700799182 /* Assets.xcassets in Resources */,
 				7E6343C31EB1BAEF004B9075 /* Main.storyboard in Resources */,
+				7E8ACA521EC009D200790C21 /* gestureLock.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
