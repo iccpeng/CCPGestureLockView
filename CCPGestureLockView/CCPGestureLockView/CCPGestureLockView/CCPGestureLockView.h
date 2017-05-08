@@ -11,6 +11,7 @@
 @class CCPGestureLockView;
 
 @protocol CCPGestureLockViewDelegate <NSObject>
+
 @required
 //比对成功后的回调
 - (void)gestureLockView:(CCPGestureLockView *)gestureLockView successCodeString:(NSString *)successString;
