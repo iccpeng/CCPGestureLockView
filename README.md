@@ -4,7 +4,7 @@
 
 ### DEMO GIF：
 
-![Image text](http://upload-images.jianshu.io/upload_images/1764698-5824042391011fb4.gif?imageMogr2/auto-orient/strip)
+![gif](https://github.com/IMCCP/CCPGestureLockView/blob/master/CCPGestureLockView/CCPGestureLockView/gestureLock.gif)
 
 ### DEMO 描述：
 ```
@@ -37,9 +37,8 @@
 @property (nonatomic, copy)void (^getCodeStringBlock)(NSString *codeString);
 ```
 /**
- *  比对成功后的回调
+ *  代理方法 比对成功后的回调
  */
 ```
-- (void)gestureLockView:(CCPGestureLockView *)gestureLockView successCodeString:(NSString *)successString;
-
+\- (void)gestureLockView:(CCPGestureLockView *)gestureLockView successCodeString:(NSString *)successString;
 ```
